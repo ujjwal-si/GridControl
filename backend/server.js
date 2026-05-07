@@ -174,7 +174,8 @@ const frontendDistPath = path.join(__dirname, "../frontend/dist");
 app.use(express.static(frontendDistPath));
 
 // 3. Catch-all: If they visit ANY URL, send them the React app
-app.get("*", (req, res) => {
+// Fixed for Express 5
+app.get(/(.*)/, (req, res) => {
   res.sendFile(path.join(frontendDistPath, "index.html"));
 });
 
