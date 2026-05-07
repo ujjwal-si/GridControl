@@ -199,15 +199,6 @@ PORT=3000
 
 This app is intentionally focused on the backend + real-time layer, not just visuals. The important part is that many users can interact with the same shared board at once, and the system keeps the state consistent, responsive, and visually clear.
 
-## Future improvements
-
-Possible upgrades include:
-- per-user statistics panel
-- better mobile support
-- smoother server-side reconciliation
-- rate limiting improvements
-- chunked grid loading for very large maps
-- history replay or undo support
 
 ## Summary
 
