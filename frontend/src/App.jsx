@@ -8,7 +8,10 @@ const TOP_BAR_HEIGHT = 50;
 const SIDEBAR_WIDTH = 280;
 const USER_COOLDOWN_MS = 3000; 
 const PIXEL_LOCK_MS = 60000; 
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'ws://localhost:3000';
+// Automatically use 'ws://localhost:3000' for local dev, and 'wss://your-render-url.com' for production
+const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+const host = window.location.hostname === 'localhost' ? 'localhost:3000' : window.location.host;
+const SOCKET_URL = `${protocol}//${host}`;
 
 const THEMES = {
   obsidian: {
