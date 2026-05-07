@@ -3,6 +3,8 @@ import { createServer } from "http";
 import { WebSocketServer } from "ws";
 import { Redis } from "@upstash/redis";
 
+
+
 const app = express();
 const server = createServer(app);
 const wss = new WebSocketServer({ server });
@@ -156,5 +158,27 @@ wss.on("connection", async (ws) => {
   });
 });
 
-app.get("/", (req, res) => res.send("Server running 🚀"));
-server.listen(3000, () => console.log("🔥 Server running on http://localhost:3000"));
+
+
+// ... all your WebSocket code above ...
+
+// 1. Setup the path to your built React files
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDistPath = path.join(__dirname, "../frontend/dist");
+
+// 2. Tell Express to serve those static files
+app.use(express.static(frontendDistPath));
+
+// 3. Catch-all: If they visit ANY URL, send them the React app
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendDistPath, "index.html"));
+});
+
+// 4. Finally, start the server
+server.listen(process.env.PORT || 3000, () => {
+  console.log("🔥 Server running!");
+});
